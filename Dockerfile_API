@@ -1,0 +1,35 @@
+# Use an official Golang runtime as a base image
+FROM golang:1.22-alpine
+
+ENV SERVER_PORT=:8080
+ENV DB_HOST=localhost
+ENV DB_PORT=5433
+ENV DB_USER=llmsuser
+ENV DB_PASSWORD=llmspasswd
+ENV DB_NAME=llm_stats
+ENV REDISAddr=localhost:6379
+ENV REDISPwd=redis1234
+ENV API_KEY=GPA-prince-edusei-2024
+ENV SEED=42
+ENV MAX_RETRIES=3
+ENV RETRY_DELAY_MS=1000
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the Go module files and download the dependencies
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy the rest of the application code
+COPY . .
+
+# Build the Go app
+RUN go build -o llm-metrics-api ./cmd/api
+
+# Expose port 8080 for the service
+EXPOSE 8080
+
+# Run the application
+CMD ["./llm-metrics-api"]
+

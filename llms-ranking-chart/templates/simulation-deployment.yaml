@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "llm-metrics-chart.simulation.fullname" . }}
+  labels:
+    app: {{ include "llm-metrics-chart.name" . }}
+    service: simulation
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "llm-metrics-chart.name" . }}
+      service: simulation
+  template:
+    metadata:
+      labels:
+        app: {{ include "llm-metrics-chart.name" . }}
+        service: simulation
+    spec:
+      containers:
+        - name: simulation
+          image: "{{ .Values.simulation.image.repository }}:{{ .Values.simulation.image.tag }}"
+          imagePullPolicy: {{ .Values.simulation.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.simulation.service.port }}
+          env:
+            - name: DB_CONN_STR
+              valueFrom:
+                secretKeyRef:
+                  name: llm-metrics-db-secret
+                  key: connectionString
+            - name: DB_HOST
+              value: {{ .Values.postgres.host }}
+            - name: DB_PORT
+              value: {{ .Values.postgres.port }}
+            - name: DB_USER
+              value: {{ .Values.postgres.user }}
+            - name: DB_PASSWORD
+              value: {{ .Values.postgres.password }}
+            - name: DB_DB
+              value: {{ .Values.postgres.database }}
+            - name: REDISAddr
+              value: "{{ .Values.redis.host }}:{{ .Values.redis.port }}"
+

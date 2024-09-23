@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "llm-metrics-chart.api.fullname" . }}
+  labels:
+    app: {{ include "llm-metrics-chart.name" . }}
+    service: api
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "{{ .Values.api.service.port }}"
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.api.service.port }}
+      targetPort: {{ .Values.api.service.port }}
+  selector:
+    app: {{ include "llm-metrics-chart.name" . }}
+    service: api
+

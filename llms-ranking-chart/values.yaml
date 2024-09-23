@@ -1,0 +1,49 @@
+replicaCount: 1
+
+simulation:
+  image:
+    repository: llm-simulation-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 8081
+
+api:
+  image:
+    repository: llm-api-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 8080
+
+postgresql:
+  enabled: true
+  image: postgres:16
+  username: llmsuser
+  password: llmspasswd
+  database: llm_stats
+  port: 5433
+
+redis:
+  enabled: true
+  image: redis:7
+  port: 6379
+
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+
+grafana:
+  enabled: true
+  adminPassword: admin
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: llm-metrics.local
+      paths:
+        - /
+  tls: []
+
