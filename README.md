@@ -5,7 +5,10 @@ Go-lang programming language was employed in the design and implementation of th
 Project Structure
 .
 ├── cmd
-│   └── main.go          # Entry point
+│   └── api 
+        └── main.go          # Entry point
+    └── sim
+        └── main.go          # Random Metrics Simulations
 ├── api
 │   └── metrics.go       # API endpoints for LLM metric ranking
 ├── models
