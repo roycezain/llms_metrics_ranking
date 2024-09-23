@@ -275,7 +275,7 @@ Logging endpoint is exposed on the URI  [ /metrics ] without authorisation
 
 I integrated the generated llms metric data into Grafana and rendered some dashboards to highlight the bar graph representation of three llms for each metric. And these dashboards are highly configurable to allow more llms comparison
 
-[Picture]
+[alt text](https://github.com/roycezain/llms_metrics_ranking/blob/main/llms_metrics_ranking.png?raw=true)
 
  
 **Deployment**
