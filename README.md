@@ -100,6 +100,14 @@ func ParallelSimulation() error {
     return nil
 }
 
+Metrics generated are:
+
+TTFT, TPS, e2e_latency, RPS
+
+LLMs whose metrics were randomly generated are (12 in number):
+
+GPT-4o, Llama 3.1 405, Mistral Large2, Claude 3.5 Sonnet, Gemini 1.5 Pro, GPT-4o mini, Llama 3.1 70B, amba 1.5Large, Mixtral 8x22B, Gemini 1.5Flash, Claude 3 Haiku, Llama 3.1 8B,
+
 Utilising Go-lang’s concurrency feature, the above code block runs simulations for multiple LLMs concurrently to generates a random value for each LLM-metric combination and stores the result in the database. The key benefits here are parallel execution and non-blocking operation
 
 Below is the  code snippet for random value generation. To make the randomisation efficient, I pre-allocated the size of the slices to avoid repeated memory allocations and also globalised my Seeding value  for reproducibility.
