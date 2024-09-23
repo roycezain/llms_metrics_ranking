@@ -291,11 +291,11 @@ Dockerfile_SIM
 
 To run the microservice using Docker:
 
-docker build -t llm-metrics-api  -f Dockerfile_API .
+docker build -t llm-api-service:1.0  -f Dockerfile_API .
 
 docker run --env-file .env -p 8080:8080 llm-metrics-api
 
-docker build -t llm-metrics-api  -f Dockerfile_SIM .
+docker build -t llm-simulation-service:1.0  -f Dockerfile_SIM .
 
 docker run --env-file .env -p 8081:8081 llm-metrics-sim
 
